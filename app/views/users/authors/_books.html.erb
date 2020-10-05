@@ -6,14 +6,16 @@
     <p class="text-center">
       <%= link_to book.title, book_path(book), class:"title" %>
     </p>
-    <div class="text-center">
+    <div class="text-center" data-controller="publish">
       <%= link_to edit_book_path(book) do %>
         <i class="fas fa-pencil-alt icon"></i>
       <% end %>
-      <%= link_to pricing_book_path(book) do %>
-        <% if has_published?(book) %>
+      <% if has_published?(book) %>
+        <%= link_to unpublish_book_path(book), method: :patch, remote: true, data: {confirm: "真的要下架嗎？"} do %>
           <i class="far fa-eye icon"></i>
-        <% else %>
+        <% end %>
+      <% else %>
+        <%= link_to pricing_book_path(book) do %>
           <i class="far fa-eye-slash icon"></i>
         <% end %>
       <% end %>
